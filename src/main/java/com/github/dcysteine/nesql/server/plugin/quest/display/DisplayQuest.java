@@ -13,13 +13,6 @@ public abstract class DisplayQuest implements Comparable<DisplayQuest> {
     public static DisplayQuest create(Quest quest, DisplayService service) {
         String description = quest.getDescription().replace("\n", "<br>");
 
-
-        ImmutableList<Icon> questLines =
-                quest.getQuestLines().stream()
-                        .sorted()
-                        .map(questLine -> DisplayQuestLine.buildIcon(questLine, service))
-                        .collect(ImmutableList.toImmutableList());
-
         ImmutableList<Icon> requiredQuests =
                 quest.getRequiredQuests().stream()
                         .sorted()
@@ -41,8 +34,7 @@ public abstract class DisplayQuest implements Comparable<DisplayQuest> {
                         .collect(ImmutableList.toImmutableList());
 
         return new AutoValue_DisplayQuest(
-                quest, buildIcon(quest, service), description,
-                questLines, requiredQuests, requiredByQuests, tasks, rewards,
+                quest, buildIcon(quest, service), description, requiredQuests, requiredByQuests, tasks, rewards,
                 service.buildAdditionalInfo(Quest.class, quest));
     }
 
@@ -51,8 +43,7 @@ public abstract class DisplayQuest implements Comparable<DisplayQuest> {
                 Icon.builder()
                         .setDescription(quest.getName())
                         .setUrl(Table.QUEST.getViewUrl(quest))
-                        .setImage(quest.getIcon().getImageFilePath())
-                        .setBottomRight(quest.getQuestId());
+                        .setImage(quest.getIcon().getImageFilePath());
 
         if (quest.getRepeatTime() > 0) {
             builder.setTopLeft("*");
@@ -64,7 +55,6 @@ public abstract class DisplayQuest implements Comparable<DisplayQuest> {
     public abstract Quest getQuest();
     public abstract Icon getIcon();
     public abstract String getDescription();
-    public abstract ImmutableList<Icon> getQuestLines();
     public abstract ImmutableList<Icon> getRequiredQuests();
     public abstract ImmutableList<Icon> getRequiredByQuests();
     public abstract ImmutableList<DisplayTask> getTasks();
