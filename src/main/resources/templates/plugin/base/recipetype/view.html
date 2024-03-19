@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Recipe Type: [[${displayRecipeType.icon.description}]]</title>
+    <title>配方类型: [[${displayRecipeType.icon.description}]]</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                Recipe Type
+                配方类型
             </h1>
         </div>
         <div class="row justify-content-center">
@@ -31,28 +31,28 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Category</th>
+                        <th scope="row">类别</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${recipeType.category}">
                             [[${recipeType.category}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Type</th>
+                        <th scope="row">类型</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${recipeType.type}">
                             [[${recipeType.type}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Shapeless</th>
+                        <th scope="row">不固定配方</th>
                         <td>
                             <th:block th:replace="~{fragment/format::formatBoolean(${recipeType.shapeless})}">
                             </th:block>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Recipe count</th>
+                        <th scope="row">配方数</th>
                         <td>
                             [[${@thymeleafService.formatInteger(displayRecipeType.recipeCount)}]]
                         </td>
@@ -62,19 +62,19 @@
             <div class="col">
                 <table class="table table-striped border">
                     <tr>
-                        <th scope="row">Item input grid</th>
+                        <th scope="row">物品输入格</th>
                         <td>[[${displayRecipeType.itemInputDimension}]]</td>
                     </tr>
                     <tr>
-                        <th scope="row">Fluid input grid</th>
+                        <th scope="row">流体输入格</th>
                         <td>[[${displayRecipeType.fluidInputDimension}]]</td>
                     </tr>
                     <tr>
-                        <th scope="row">Item output grid</th>
+                        <th scope="row">物品输出格</th>
                         <td>[[${displayRecipeType.itemOutputDimension}]]</td>
                     </tr>
                     <tr>
-                        <th scope="row">Fluid output grid</th>
+                        <th scope="row">流体输出格</th>
                         <td>[[${displayRecipeType.fluidOutputDimension}]]</td>
                     </tr>
                 </table>

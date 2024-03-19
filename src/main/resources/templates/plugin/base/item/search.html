@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search Items</title>
+    <title>搜索物品</title>
 </head>
 <body>
 
@@ -10,12 +10,12 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                Search Items
+                搜索物品
             </h1>
         </div>
         <div class="row">
             <span class="text-center">
-                Query fields will be joined with AND. Leave all fields blank to retrieve everything.
+                将根据所有填写的字段查找物品。留空全部字段则检索全部内容。
             </span>
         </div>
 
@@ -25,32 +25,32 @@
                     <div class="row">
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('localizedName', 'Localized name')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('localizedName', '本地化名称')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('modId', 'Mod ID')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('modId', '模组ID')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('internalName', 'Internal name')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('internalName', '内部名称')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldNumber('itemDamage', 'Item damage')}">
+                                <th:block th:replace="~{fragment/search::searchFieldNumber('itemDamage', '物品耐久')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('tooltip', 'Tooltip')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('tooltip', '描述')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
@@ -59,19 +59,19 @@
                                 <th:block th:replace="~{fragment/search::searchFieldRegex('nbt', 'NBT')}">
                                 </th:block>
                                 <div class="form-text">
-                                    Search for "^$" to find items with no NBT.
+                                    搜索"^$"以查找不含NBT的流体。
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchField('itemGroupId', 'Item group ID', 'search')}">
+                                <th:block th:replace="~{fragment/search::searchField('itemGroupId', '物品组ID', 'search')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchField('recipeId', 'Recipe ID (input)', 'search')}">
+                                <th:block th:replace="~{fragment/search::searchField('recipeId', '配方ID (输入)', 'search')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
@@ -88,7 +88,7 @@
 
         <div class="row my-5">
             <h1 class="display-3 text-center">
-                Search Results
+                搜索结果
             </h1>
         </div>
         <div class="row">

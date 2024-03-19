@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <body>
 <th:block th:fragment="searchField(name, label, type)">
     <label th:for="${name}" class="form-label">[[${label}]]</label>
@@ -37,7 +38,7 @@
     <span class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true">
     </span>
     <i class="bi-search"></i>
-    Search
+    搜索
 </button>
 
 <div th:fragment="paginatedTableList(page, baseUri)" class="container">
@@ -101,10 +102,10 @@
                 </td>
                 <td>
                     <i class="bi-shuffle fs-1" th:if="${row.recipe.recipeType.shapeless}"
-                       data-bs-toggle="tooltip" data-bs-title="Shapeless recipe">
+                       data-bs-toggle="tooltip" data-bs-title="无序配方">
                     </i>
                     <i class="bi-arrow-right fs-1" th:if="!${row.recipe.recipeType.shapeless}"
-                       data-bs-toggle="tooltip" data-bs-title="Shaped recipe">
+                       data-bs-toggle="tooltip" data-bs-title="有序配方">
                     </i>
                 </td>
                 <td>
@@ -130,9 +131,9 @@
      th:with="pageNumber=${page.number} + 1"
      class="row align-items-baseline">
     <div class="col">
-        Page [[${@thymeleafService.formatInteger(pageNumber)}]] of
-        [[${@thymeleafService.formatInteger(page.totalPages)}]] |
-        [[${@thymeleafService.formatInteger(page.totalElements)}]] total results
+        第 [[${@thymeleafService.formatInteger(pageNumber)}]] 页，共
+        [[${@thymeleafService.formatInteger(page.totalPages)}]] 页 |
+        [[${@thymeleafService.formatInteger(page.totalElements)}]] 搜索结果
     </div>
     <div class="col-auto">
         <form method="get">
@@ -142,9 +143,9 @@
                    th:if="${name} != 'page'">
 
             <div class="input-group">
-                <span class="input-group-text">Page</span>
+                <span class="input-group-text">页数</span>
                 <input name="page" type="number" class="form-control text-end"
-                       th:value="${pageNumber}" min="1" th:max="${page.totalPages}">
+                       th:value="${pageNumber}">
                 <span class="input-group-text">
                     / [[${@thymeleafService.formatInteger(page.totalPages)}]]
                 </span>

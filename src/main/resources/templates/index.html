@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Index</title>
+    <title>首页</title>
 </head>
 <body>
 
@@ -10,34 +10,34 @@
     <div class="container">
         <div class="row">
             <h1 class="display-1 text-center">
-                Welcome to NESQL!
+                欢迎来到GTNH在线数据库！
             </h1>
         </div>
         <div class="row justify-content-center">
-            Loaded [[${itemCount}]] items, [[${fluidCount}]] fluids, [[${recipeCount}]] recipes
+            已加载 [[${itemCount}]] 物品, [[${fluidCount}]] 流体, [[${recipeCount}]] 配方
         </div>
 
         <div class="row justify-content-center mt-2">
             <div class="col-3">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-info fw-bold">
-                        Active plugins
+                        已激活插件
                     </li>
                     <li th:each="plugin : ${metadata.activePlugins}" class="list-group-item">
                         [[${plugin.name}]]
                     </li>
                     <li th:if="${#lists.isEmpty(metadata.activePlugins)}"
                         class="list-group-item list-group-item-warning">
-                        None
+                        无
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="row justify-content-center fw-light mt-2">
-            Repository created on
-            [[${@thymeleafService.formatTimestamp(metadata.creationTimeMillis)}]]
-            by NESQL Exporter v[[${metadata.version}]]
+            数据库由NESQL Exporter在
+            [[${@thymeleafService.formatTimestamp(metadata.creationTimeMillis)}]] 创建
+            对应版本GTNH 2.6.0
         </div>
     </div>
 </th:block>
