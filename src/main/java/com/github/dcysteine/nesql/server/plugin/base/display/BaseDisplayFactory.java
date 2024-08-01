@@ -1,6 +1,8 @@
 package com.github.dcysteine.nesql.server.plugin.base.display;
 
+import com.github.dcysteine.nesql.server.common.display.DetailedFluid;
 import com.github.dcysteine.nesql.server.common.display.Icon;
+import com.github.dcysteine.nesql.server.common.display.DetailedItem;
 import com.github.dcysteine.nesql.server.common.service.DisplayService;
 import com.github.dcysteine.nesql.server.plugin.base.display.fluid.DisplayFluid;
 import com.github.dcysteine.nesql.server.plugin.base.display.fluid.DisplayFluidGroup;
@@ -25,7 +27,9 @@ import com.github.dcysteine.nesql.sql.base.recipe.RecipeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/** Service providing convenient methods for building display objects. */
+/**
+ * Service providing convenient methods for building display objects.
+ */
 @Service
 public class BaseDisplayFactory {
     @Autowired
@@ -37,6 +41,10 @@ public class BaseDisplayFactory {
 
     public Icon buildDisplayItemIcon(Item item) {
         return DisplayItem.buildIcon(item, service);
+    }
+
+    public DetailedItem buildDisplayItemWithTable(Item item) {
+        return DisplayItem.buildTable(item, service);
     }
 
     public DisplayItemStack buildDisplayItemStack(ItemStack itemStack) {
@@ -71,6 +79,10 @@ public class BaseDisplayFactory {
 
     public Icon buildDisplayFluidIcon(Fluid fluid) {
         return DisplayFluid.buildIcon(fluid, service);
+    }
+
+    public DetailedFluid buildDisplayFluidWithTable(Fluid fluid) {
+        return DisplayFluid.buildTable(fluid, service);
     }
 
     public DisplayFluidStack buildDisplayFluidStack(FluidStack fluidStack) {

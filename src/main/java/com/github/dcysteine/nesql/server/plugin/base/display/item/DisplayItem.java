@@ -1,6 +1,7 @@
 package com.github.dcysteine.nesql.server.plugin.base.display.item;
 
 import com.github.dcysteine.nesql.server.common.Table;
+import com.github.dcysteine.nesql.server.common.display.DetailedItem;
 import com.github.dcysteine.nesql.server.common.display.Icon;
 import com.github.dcysteine.nesql.server.common.display.InfoPanel;
 import com.github.dcysteine.nesql.server.common.service.DisplayService;
@@ -41,12 +42,34 @@ public abstract class DisplayItem implements Comparable<DisplayItem> {
                 .build();
     }
 
+    public static DetailedItem buildTable(Item item, DisplayService service) {
+        String giveCommand = MinecraftUtil.buildGiveCommand(item, 1);
+        String giveStackCommand = item.getMaxStackSize() > 1 ?
+                MinecraftUtil.buildGiveCommand(item, item.getMaxStackSize()) : null;
+
+        return DetailedItem.builder()
+                .setIcon(buildIcon(item, service))
+                .setLocalizedName(item.getLocalizedName())
+                .setModId(item.getModId())
+                .setInternalName(item.getInternalName())
+                .setItemId(item.getItemId())
+                .setItemDamage(item.getItemDamage())
+                .setGiveCommand(giveCommand)
+                .setGiveStackCommand(giveStackCommand)
+                .build();
+    }
+
     public abstract Item getItem();
+
     public abstract Icon getIcon();
+
     public abstract ImmutableList<String> getNbt();
+
     public abstract ImmutableList<String> getTooltip();
 
-    /** Returns a Minecraft {@code /give} command giving a single item. */
+    /**
+     * Returns a Minecraft {@code /give} command giving a single item.
+     */
     public abstract String getGiveCommand();
 
     /**
