@@ -5,5 +5,11 @@
         th:data-text="${text}">
     <i class="bi-clipboard2"></i>
 </button>
+<button th:fragment="copyButtonText(text, buttonText)" class="copy-button btn btn-sm btn-outline-secondary"
+        th:data-text="${text}"
+        th:with="buttonText=${buttonText} == null ? '' : ${buttonText}">
+    <i class="bi-clipboard2"></i>
+    <span th:if="${!#strings.isEmpty(buttonText)}" th:text="${buttonText}"></span>
+</button>
 </body>
 </html>

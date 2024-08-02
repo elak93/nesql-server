@@ -7,6 +7,8 @@ import com.github.dcysteine.nesql.server.plugin.forge.display.ForgeDisplayFactor
 import com.github.dcysteine.nesql.server.plugin.forge.spec.FluidContainerSpec;
 import com.github.dcysteine.nesql.sql.forge.FluidContainer;
 import com.github.dcysteine.nesql.sql.forge.FluidContainerRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +46,10 @@ public class FluidContainerController {
             @RequestParam(required = false) Optional<Integer> minAmount,
             @RequestParam(required = false) Optional<Integer> maxAmount,
             @RequestParam(defaultValue = "1") int page,
-            Model model) {
+            @RequestParam(required = false) Optional<Integer> viewMode,
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         List<Specification<FluidContainer>> specs = new ArrayList<>();
         specs.add(ParamUtil.buildStringSpec(itemName, FluidContainerSpec::buildFilledItemNameSpec));
         specs.add(
@@ -56,9 +62,20 @@ public class FluidContainerController {
         PageRequest pageRequest =
                 searchService.buildPageRequest(
                         page, SearchResultsLayout.GRID, FluidContainerSpec.DEFAULT_SORT);
-        searchService.handleSearch(
-                pageRequest, model, fluidContainerRepository, Specification.allOf(specs),
-                forgeDisplayFactory::buildDisplayFluidContainerIcon);
+
+        List<String> tableHeaders = Arrays.asList("#", "本地化名称", "模组", "内部名称", "物品ID", "物品耐久", "操作");
+        List<String> tableColumns = Arrays.asList("icon", "localizedName", "modId", "internalName", "itemId", "itemDamage", "itemActions");
+        int finalViewMode = searchService.handleViewMode("fluidcontainer", viewMode, request, response, model, tableHeaders, tableColumns);
+
+        if (finalViewMode == 0) {
+            searchService.handleSearch(
+                    pageRequest, model, fluidContainerRepository, Specification.allOf(specs),
+                    forgeDisplayFactory::buildDisplayFluidContainerIcon);
+        } else {
+            searchService.handleSearch(
+                    pageRequest, model, fluidContainerRepository, Specification.allOf(specs),
+                    forgeDisplayFactory::buildDisplayFluidContainerWithTable);
+        }
         return "plugin/forge/fluidcontainer/search";
     }
 }

@@ -57,13 +57,80 @@
             </tr>
         </table>
     </div>
-    <div th:replace="~{fragment/search::paginationControls(${page}, ${baseUri})}"></div>
+    <div th:replace="~{fragment/search::paginationControls(${page}, ${baseUri})}">
+
+    </div>
 </div>
 
 <div th:fragment="paginatedTableGrid(page, baseUri)" class="container">
     <div th:replace="~{fragment/search::paginationControls(${page}, ${baseUri})}"></div>
+
     <div class="row">
+        <!-- table mode -->
         <table class="table table-striped border"
+               th:if="${viewMode == 1}"
+               th:with="detailedItems = ${page.content}">
+            <thead>
+            <tr>
+                <th th:each="header : ${tableHeaders}" th:text="${header}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="align-middle" th:each="item : ${detailedItems}">
+                <td th:each="column : ${tableColumns}">
+                    <div th:switch="${column}" class="table-view">
+                        <span th:case="'icon'">
+                            <a th:replace="~{fragment/icon::linkIcon(${item.icon})}"></a>
+                        </span>
+                        <span class="text-truncate"
+                              th:case="'localizedName'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.localizedName}"
+                              th:text="${item.localizedName}">Localized Name</span>
+                        <span class="text-truncate"
+                              th:case="'modId'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.modId}"
+                              th:text="${item.modId}">Mod ID</span>
+                        <span class="text-truncate"
+                              th:case="'internalName'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.internalName}"
+                              th:text="${item.internalName}">Internal Name</span>
+                        <span class="text-truncate"
+                              th:case="'itemId'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.itemId}"
+                              th:text="${item.itemId}">Item ID</span>
+                        <span class="text-truncate"
+                              th:case="'fluidId'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.fluidId}"
+                              th:text="${item.fluidId}">Fluid ID</span>
+                        <span class="text-truncate"
+                              th:case="'itemDamage'" data-bs-toggle="tooltip"
+                              th:data-bs-title="${item.itemDamage}"
+                              th:text="${item.itemDamage}">Item Damage</span>
+                        <span th:case="'gaseous'">
+                            <th:block th:replace="~{fragment/format::formatBoolean(${item.gaseous})}">
+
+                            </th:block>
+                        </span>
+                        <span th:case="'itemActions'">
+                            <div data-bs-toggle="tooltip"
+                                 th:data-bs-title="${item.giveCommand}"
+                                 th:if="${item.giveCommand != null}">
+                                <button th:replace="~{fragment/copy::copyButtonText(${item.giveCommand},'获取物品')}"></button>
+                            </div>
+                            <div data-bs-toggle="tooltip"
+                                 th:data-bs-title="${item.giveStackCommand}"
+                                 th:if="${item.giveStackCommand != null}">
+                                <button th:replace="~{fragment/copy::copyButtonText(${item.giveStackCommand},'最大堆叠')}"></button>
+                            </div>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- icon mode-->
+        <table class="table table-striped border"
+               th:if="${viewMode != 1}"
                th:with="partitions = ${@thymeleafService.partitionGrid(page.content)}">
             <tr th:each="row : ${partitions}" class="text-center">
                 <td th:each="cell : ${row}">
@@ -77,6 +144,7 @@
             </tr>
         </table>
     </div>
+
     <div th:replace="~{fragment/search::paginationControls(${page}, ${baseUri})}"></div>
 </div>
 
@@ -181,6 +249,25 @@
                 </li>
             </ul>
         </nav>
+    </div>
+    <div class="col-auto" th:if="${viewMode != null}">
+        <form method="get">
+            <input type="hidden" th:name="${name}"
+                   th:value="${@thymeleafService.request.getParameter(name)}"
+                   th:each="name : ${@thymeleafService.request.getParameterNames()}"
+                   th:if="${name} != 'viewMode'">
+
+            <div class="input-group">
+                <button name="viewMode" type="submit" value="0" class="btn btn-outline-secondary"
+                        th:classappend="${viewMode == 0} ? ' active' : ''">
+                    <i class="bi bi-grid-fill"></i>
+                </button>
+                <button name="viewMode" type="submit" value="1" class="btn btn-outline-secondary"
+                        th:classappend="${viewMode == 1} ? ' active' : ''">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 </body>

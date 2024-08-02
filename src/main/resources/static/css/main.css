@@ -73,3 +73,11 @@ table.recipe-grid-table td {
 table.recipe-grid-table td.recipe-grid-shaded {
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+.table-view > .text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 360px;
+    display: inline-block;
+}

@@ -1,6 +1,7 @@
 package com.github.dcysteine.nesql.server.plugin.base.display.fluid;
 
 import com.github.dcysteine.nesql.server.common.Table;
+import com.github.dcysteine.nesql.server.common.display.DetailedFluid;
 import com.github.dcysteine.nesql.server.common.display.Icon;
 import com.github.dcysteine.nesql.server.common.display.InfoPanel;
 import com.github.dcysteine.nesql.server.common.service.DisplayService;
@@ -30,9 +31,24 @@ public abstract class DisplayFluid implements Comparable<DisplayFluid> {
                 .build();
     }
 
+    public static DetailedFluid buildTable(Fluid fluid, DisplayService service) {
+
+        return DetailedFluid.builder()
+                .setIcon(buildIcon(fluid, service))
+                .setLocalizedName(fluid.getLocalizedName())
+                .setModId(fluid.getModId())
+                .setInternalName(fluid.getInternalName())
+                .setFluidId(fluid.getFluidId())
+                .setGaseous(fluid.isGaseous())
+                .build();
+    }
+
     public abstract Fluid getFluid();
+
     public abstract Icon getIcon();
+
     public abstract ImmutableList<String> getNbt();
+
     public abstract ImmutableList<InfoPanel> getAdditionalInfo();
 
     @Override

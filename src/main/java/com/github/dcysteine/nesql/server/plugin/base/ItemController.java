@@ -8,6 +8,8 @@ import com.github.dcysteine.nesql.server.plugin.base.display.BaseDisplayFactory;
 import com.github.dcysteine.nesql.server.common.service.SearchService;
 import com.github.dcysteine.nesql.sql.base.item.Item;
 import com.github.dcysteine.nesql.sql.base.item.ItemRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +62,10 @@ public class ItemController {
             @RequestParam(required = false) Optional<String> itemGroupId,
             @RequestParam(required = false) Optional<String> recipeId,
             @RequestParam(defaultValue = "1") int page,
-            Model model) {
+            @RequestParam(required = false) Optional<Integer> viewMode,
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         List<Specification<Item>> specs = new ArrayList<>();
         specs.add(ParamUtil.buildStringSpec(localizedName, ItemSpec::buildLocalizedNameSpec));
         specs.add(ParamUtil.buildStringSpec(modId, ItemSpec::buildModIdSpec));
@@ -73,9 +79,21 @@ public class ItemController {
         PageRequest pageRequest =
                 searchService.buildPageRequest(
                         page, SearchResultsLayout.GRID, ItemSpec.DEFAULT_SORT);
-        searchService.handleSearch(
-                pageRequest, model, itemRepository, Specification.allOf(specs),
-                baseDisplayFactory::buildDisplayItemIcon);
+
+        List<String> tableHeaders = Arrays.asList("#", "本地化名称", "模组", "内部名称", "物品ID", "物品耐久", "操作");
+        List<String> tableColumns = Arrays.asList("icon", "localizedName", "modId", "internalName", "itemId", "itemDamage", "itemActions");
+        int finalViewMode = searchService.handleViewMode("item", viewMode, request, response, model, tableHeaders, tableColumns);
+
+        if (finalViewMode == 0) {
+            searchService.handleSearch(
+                    pageRequest, model, itemRepository, Specification.allOf(specs),
+                    baseDisplayFactory::buildDisplayItemIcon);
+        } else {
+            searchService.handleSearch(
+                    pageRequest, model, itemRepository, Specification.allOf(specs),
+                    baseDisplayFactory::buildDisplayItemWithTable);
+        }
+
         return "plugin/base/item/search";
     }
 }

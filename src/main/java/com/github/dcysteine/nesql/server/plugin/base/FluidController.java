@@ -8,6 +8,8 @@ import com.github.dcysteine.nesql.server.plugin.base.display.BaseDisplayFactory;
 import com.github.dcysteine.nesql.server.common.service.SearchService;
 import com.github.dcysteine.nesql.sql.base.fluid.Fluid;
 import com.github.dcysteine.nesql.sql.base.fluid.FluidRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +60,10 @@ public class FluidController {
             @RequestParam(required = false) Optional<String> fluidGroupId,
             @RequestParam(required = false) Optional<String> recipeId,
             @RequestParam(defaultValue = "1") int page,
-            Model model) {
+            @RequestParam(required = false) Optional<Integer> viewMode,
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         List<Specification<Fluid>> specs = new ArrayList<>();
         specs.add(ParamUtil.buildStringSpec(localizedName, FluidSpec::buildLocalizedNameSpec));
         specs.add(ParamUtil.buildStringSpec(modId, FluidSpec::buildModIdSpec));
@@ -69,9 +75,21 @@ public class FluidController {
         PageRequest pageRequest =
                 searchService.buildPageRequest(
                         page, SearchResultsLayout.GRID, FluidSpec.DEFAULT_SORT);
-        searchService.handleSearch(
-                pageRequest, model, fluidRepository, Specification.allOf(specs),
-                baseDisplayFactory::buildDisplayFluidIcon);
+
+        List<String> tableHeaders = Arrays.asList("#", "本地化名称", "模组", "内部名称", "流体ID", "是否气态");
+        List<String> tableColumns = Arrays.asList("icon", "localizedName", "modId", "internalName", "fluidId", "gaseous");
+        int finalViewMode = searchService.handleViewMode("fluid", viewMode, request, response, model, tableHeaders, tableColumns);
+
+        if (finalViewMode == 0) {
+            searchService.handleSearch(
+                    pageRequest, model, fluidRepository, Specification.allOf(specs),
+                    baseDisplayFactory::buildDisplayFluidIcon);
+        } else {
+            searchService.handleSearch(
+                    pageRequest, model, fluidRepository, Specification.allOf(specs),
+                    baseDisplayFactory::buildDisplayFluidWithTable);
+        }
+
         return "plugin/base/fluid/search";
     }
 }
