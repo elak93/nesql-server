@@ -1,5 +1,4 @@
 plugins {
-    kotlin("jvm") version "1.9.0"
     idea
     id("java")
     id("org.springframework.boot") version "3.0.2"
@@ -21,12 +20,9 @@ repositories {
 }
 
 dependencies {
-    implementation ("org.asynchttpclient:async-http-client:3.0.0.Beta3")
-    api(platform("net.mamoe:mirai-bom:2.16.0"))
-    api("net.mamoe:mirai-core-api")     // 编译代码使用
-    runtimeOnly("net.mamoe:mirai-core") // 运行时使用
     // Include SQL schema from NESQL Exporter.
-    implementation(fileTree("libs") { include("*.jar") })
+    implementation(fileTree("libs") { include("NESQL-Exporter-*-sql.jar") })
+
     compileOnly("com.google.auto.value:auto-value-annotations:1.10.1")
     annotationProcessor("com.google.auto.value:auto-value:1.10.1")
 
