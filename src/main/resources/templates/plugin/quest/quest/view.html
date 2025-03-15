@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>任务: [[${displayQuest.icon.description}]]</title>
+    <title>Quest: [[${displayQuest.icon.description}]]</title>
 </head>
 <body>
 
@@ -11,7 +10,7 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                任务
+                Quest
             </h1>
         </div>
         <div class="row justify-content-center">
@@ -30,40 +29,38 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">任务ID</th>
-                        <td>
-                            [[${quest.questId}]]
-                        </td>
+                        <th scope="row">Quest ID</th>
+                        <td>[[${quest.questId}]]</td>
                     </tr>
                     <tr>
-                        <th scope="row">名称</th>
+                        <th scope="row">Name</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${quest.name}">
                             [[${quest.name}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">可见性</th>
+                        <th scope="row">Visibility</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${quest.visibility}">
                             [[${quest.visibility}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">重复次数</th>
+                        <th scope="row">Repeat time</th>
                         <td>
                             [[${@thymeleafService.formatInteger(quest.repeatTime)}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">任务逻辑</th>
+                        <th scope="row">Quest logic</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${quest.questLogic}">
                             [[${quest.questLogic}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">工作逻辑</th>
+                        <th scope="row">Task logic</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${quest.taskLogic}">
                             [[${quest.taskLogic}]]
@@ -74,10 +71,19 @@
         </div>
 
         <div class="row justify-content-center mt-3">
+            <div th:if="${quest.questLines.size} > 0" class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quest lines</h5>
+                        <span th:replace="~{fragment/icon::iconList(${displayQuest.questLines})}">
+                        </span>
+                    </div>
+                </div>
+            </div>
             <div th:if="${quest.requiredQuests.size} > 0" class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">此任务前置</h5>
+                        <h5 class="card-title">Required quests</h5>
                         <span th:replace="~{fragment/icon::iconList(${displayQuest.requiredQuests})}">
                         </span>
                     </div>
@@ -86,7 +92,7 @@
             <div th:if="${quest.requiredByQuests.size} > 0" class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">需要此任务前置</h5>
+                        <h5 class="card-title">Required by quests</h5>
                         <span th:replace="~{fragment/icon::iconList(${displayQuest.requiredByQuests})}">
                         </span>
                     </div>
@@ -109,48 +115,48 @@
                              data-bs-parent="#taskAccordion" th:aria-labelledby="|${task.task.id}Label|">
                             <table class="table table-striped table-fixed mb-0">
                                 <tr>
-                                    <th scope="row">工作类型</th>
+                                    <th scope="row">Task type</th>
                                     <td class="text-truncate"
                                         data-bs-toggle="tooltip" th:data-bs-title="${task.task.type.name}">
                                         [[${task.task.type.name}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${task.task.type.name} == 'retrieval'">
-                                    <th scope="row">消耗材料</th>
+                                    <th scope="row">Consume</th>
                                     <td>
                                         <th:block th:replace="~{fragment/format::formatBoolean(${task.task.consume})}">
                                         </th:block>
                                     </td>
                                 </tr>
                                 <tr th:if="${task.task.entityId.length} > 0">
-                                    <th scope="row">实体ID</th>
+                                    <th scope="row">Entity ID</th>
                                     <td class="text-truncate"
                                         data-bs-toggle="tooltip" th:data-bs-title="${task.task.entityId}">
                                         [[${task.task.entityId}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${task.task.numberRequired} > 0">
-                                    <th scope="row">需要数量</th>
+                                    <th scope="row">Number required</th>
                                     <td>
                                         [[${@thymeleafService.formatInteger(task.task.numberRequired)}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${task.task.dimensionName.length} > 0">
-                                    <th scope="row">纬度</th>
+                                    <th scope="row">Dimension</th>
                                     <td class="text-truncate"
                                         data-bs-toggle="tooltip" th:data-bs-title="${task.task.dimensionName}">
                                         [[${task.task.dimensionName}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${task.items.size} > 0">
-                                    <th scope="row" class="align-middle">物品</th>
+                                    <th scope="row" class="align-middle">Items</th>
                                     <td>
                                         <span th:replace="~{fragment/icon::iconList(${task.items})}">
                                         </span>
                                     </td>
                                 </tr>
                                 <tr th:if="${task.fluids.size} > 0">
-                                    <th scope="row" class="align-middle">流体</th>
+                                    <th scope="row" class="align-middle">Fluids</th>
                                     <td>
                                         <span th:replace="~{fragment/icon::iconList(${task.fluids})}">
                                         </span>
@@ -175,35 +181,35 @@
                              data-bs-parent="#rewardAccordion" th:aria-labelledby="|${reward.reward.id}Label|">
                             <table class="table table-striped table-fixed mb-0">
                                 <tr>
-                                    <th scope="row">奖励类型</th>
+                                    <th scope="row">Reward type</th>
                                     <td class="text-truncate"
                                         data-bs-toggle="tooltip" th:data-bs-title="${reward.reward.type.name}">
                                         [[${reward.reward.type.name}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${reward.reward.command.length} > 0">
-                                    <th scope="row">指令</th>
+                                    <th scope="row">Command</th>
                                     <td class="text-truncate"
                                         data-bs-toggle="tooltip" th:data-bs-title="${reward.reward.command}">
                                         [[${reward.reward.command}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${reward.reward.xp} > 0">
-                                    <th th:if="${reward.reward.levels}" scope="row">经验等级</th>
-                                    <th th:if="!${reward.reward.levels}" scope="row">经验</th>
+                                    <th th:if="${reward.reward.levels}" scope="row">XP levels</th>
+                                    <th th:if="!${reward.reward.levels}" scope="row">XP</th>
                                     <td>
                                         [[${@thymeleafService.formatInteger(reward.reward.xp)}]]
                                     </td>
                                 </tr>
                                 <tr th:if="${reward.items.size} > 0">
-                                    <th scope="row" class="align-middle">物品</th>
+                                    <th scope="row" class="align-middle">Items</th>
                                     <td>
                                         <span th:replace="~{fragment/icon::iconList(${reward.items})}">
                                         </span>
                                     </td>
                                 </tr>
                                 <tr th:if="${reward.completeQuest.isPresent}">
-                                    <th scope="row" class="align-middle">完成任务</th>
+                                    <th scope="row" class="align-middle">Complete quest</th>
                                     <td>
                                         <a th:replace="~{fragment/icon::linkIcon(${reward.completeQuest.get})}">
                                         </a>
@@ -219,7 +225,7 @@
         <div class="row mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">任务描述</h5>
+                    <h5 class="card-title">Quest description</h5>
                     [(${displayQuest.description})]
                 </div>
             </div>

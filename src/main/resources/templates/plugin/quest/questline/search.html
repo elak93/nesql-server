@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>搜索任务章节</title>
+    <title>Search Quest Lines</title>
 </head>
 <body>
 
@@ -10,12 +10,12 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                搜索任务章节
+                Search Quest Lines
             </h1>
         </div>
         <div class="row">
             <span class="text-center">
-                将根据所有填写的字段查找任务线。留空全部字段则检索全部内容。
+                Query fields will be joined with AND. Leave all fields blank to retrieve everything.
             </span>
         </div>
 
@@ -25,26 +25,26 @@
                     <div class="row">
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('questLineName', '任务章节名')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('questLineName', 'Quest line name')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('questLineDescription', '任务章节描述')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('questLineDescription', 'Quest line description')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldNumber('questLineId', '任务章节ID')}">
+                                <th:block th:replace="~{fragment/search::searchField('questLineId', 'Quest line ID', 'search')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('visibility', '可见性')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('visibility', 'Visibility')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
@@ -61,7 +61,7 @@
 
         <div class="row my-5">
             <h1 class="display-3 text-center">
-                搜索结果
+                Search Results
             </h1>
         </div>
         <div class="row">

@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>要素: [[${displayAspect.icon.description}]]</title>
+    <title>Aspect: [[${displayAspect.icon.description}]]</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                要素
+                Aspect
             </h1>
         </div>
         <div class="row justify-content-center">
@@ -29,21 +29,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">名称</th>
+                        <th scope="row">Name</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${aspect.name}">
                             [[${aspect.name}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">描述</th>
+                        <th scope="row">Description</th>
                         <td class="text-truncate"
                             data-bs-toggle="tooltip" th:data-bs-title="${aspect.description}">
                             [[${aspect.description}]]
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">基础要素</th>
+                        <th scope="row">Primal</th>
                         <td>
                             <th:block th:replace="~{fragment/format::formatBoolean(${aspect.primal})}">
                             </th:block>
@@ -54,7 +54,7 @@
             <div th:if="${aspect.components.size} > 0" class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">需要要素</h5>
+                        <h5 class="card-title">Components</h5>
                         <span th:replace="~{fragment/icon::iconList(${displayAspect.components})}">
                         </span>
                     </div>
@@ -63,7 +63,7 @@
             <div th:if="${aspect.componentOf.size} > 0" class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">可合成要素</h5>
+                        <h5 class="card-title">Component of</h5>
                         <span th:replace="~{fragment/icon::iconList(${displayAspect.componentOf})}">
                         </span>
                     </div>

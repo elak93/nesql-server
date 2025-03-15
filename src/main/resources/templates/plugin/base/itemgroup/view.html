@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>物品组: [[${displayItemGroup.icon.description}]]</title>
+    <title>Item Group: [[${displayItemGroup.icon.description}]]</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                物品组
+                Item Group
             </h1>
         </div>
         <div class="row justify-content-center">
@@ -35,7 +35,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">数量</th>
+                        <th scope="row">Size</th>
                         <td>
                             [[${@thymeleafService.formatInteger(displayItemGroup.size)}]]
                         </td>
@@ -48,7 +48,7 @@
              class="row justify-content-center mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">物品</h5>
+                    <h5 class="card-title">Items</h5>
                     <span th:replace="~{fragment/icon::iconList(${displayItemGroup.itemStacks})}">
                     </span>
                 </div>

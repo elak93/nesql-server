@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>流体组: [[${displayFluidGroup.icon.description}]]</title>
+    <title>Fluid Group: [[${displayFluidGroup.icon.description}]]</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                流体组
+                Fluid Group
             </h1>
         </div>
         <div class="row justify-content-center">
@@ -35,7 +35,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">数量</th>
+                        <th scope="row">Size</th>
                         <td>
                             [[${@thymeleafService.formatInteger(displayFluidGroup.size)}]]
                         </td>
@@ -48,7 +48,7 @@
              class="row justify-content-center mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">流体</h5>
+                    <h5 class="card-title">Fluids</h5>
                     <span th:replace="~{fragment/icon::iconList(${displayFluidGroup.fluidStacks})}">
                     </span>
                 </div>

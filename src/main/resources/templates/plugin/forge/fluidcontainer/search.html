@@ -2,7 +2,7 @@
 <html th:replace="~{fragment/template::template(~{::title}, ~{::content})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>搜索流体容器</title>
+    <title>Search Fluid Containers</title>
 </head>
 <body>
 
@@ -10,12 +10,12 @@
     <div class="container">
         <div class="row">
             <h1 class="display-3 text-center">
-                搜索流体容器
+                Search Fluid Containers
             </h1>
         </div>
         <div class="row">
             <span class="text-center">
-                将根据所有填写的字段查找流体容器。留空全部字段则检索全部内容。
+                Query fields will be joined with AND. Leave all fields blank to retrieve everything.
             </span>
         </div>
 
@@ -25,39 +25,39 @@
                     <div class="row">
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('itemName', '物品名')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('itemName', 'Item name')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('itemModId', '物品模组ID')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('itemModId', 'Item mod ID')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('fluidName', '流体名')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('fluidName', 'Fluid name')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldRegex('fluidModId', '流体模组ID')}">
+                                <th:block th:replace="~{fragment/search::searchFieldRegex('fluidModId', 'Fluid mod ID')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldNumber('minAmount', '最小容量')}">
+                                <th:block th:replace="~{fragment/search::searchFieldNumber('minAmount', 'Minimum amount')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
 
                             <div class="mt-2">
-                                <th:block th:replace="~{fragment/search::searchFieldNumber('maxAmount', '最大容量')}">
+                                <th:block th:replace="~{fragment/search::searchFieldNumber('maxAmount', 'Maximum amount')}">
                                 </th:block>
                                 <div class="form-text">&nbsp;</div>
                             </div>
@@ -74,7 +74,7 @@
 
         <div class="row my-5">
             <h1 class="display-3 text-center">
-                搜索结果
+                Search Results
             </h1>
         </div>
         <div class="row">
