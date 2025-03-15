@@ -11,30 +11,30 @@ import java.util.function.Function;
 
 /** Enum for organizing code relating to tables. */
 public enum Table {
-    ITEM(Plugin.BASE, "物品", "item"),
-    FLUID(Plugin.BASE, "流体", "fluid"),
-    ITEM_GROUP(Plugin.BASE, "物品组", "itemgroup"),
-    FLUID_GROUP(Plugin.BASE, "流体组", "fluidgroup"),
-    RECIPE(Plugin.BASE, "配方", "recipe"),
-    RECIPE_TYPE(Plugin.BASE, "配方类型", "recipetype", "minRecipeCount", "1"),
+    ITEM(Plugin.BASE, "Item", "item"),
+    FLUID(Plugin.BASE, "Fluid", "fluid"),
+    ITEM_GROUP(Plugin.BASE, "Item Group", "itemgroup"),
+    FLUID_GROUP(Plugin.BASE, "Fluid Group", "fluidgroup"),
+    RECIPE(Plugin.BASE, "Recipe", "recipe"),
+    RECIPE_TYPE(Plugin.BASE, "Recipe Type", "recipetype", "minRecipeCount", "1"),
     /** Advanced recipe search. Does not have a {@code view} page. */
-    ADVANCED_RECIPE_SEARCH(Plugin.BASE, "高级配方", "advrecipe"),
+    ADVANCED_RECIPE_SEARCH(Plugin.BASE, "Recipe+", "advrecipe"),
 
     /** This table uses {@code ItemGroup}'s {@code view} page. */
-    ORE_DICTIONARY(Plugin.FORGE, "矿物词典", "oredictionary"),
+    ORE_DICTIONARY(Plugin.FORGE, "Ore Dictionary", "oredictionary"),
     // Fluid Block table is omitted.
     /** This table uses {@code Item}'s {@code view} page. */
-    FLUID_CONTAINER(Plugin.FORGE, "流体容器", "fluidcontainer"),
+    FLUID_CONTAINER(Plugin.FORGE, "Fluid Container", "fluidcontainer"),
 
     // GregTech Recipe table is omitted.
 
-    ASPECT(Plugin.THAUMCRAFT, "神秘时代要素", "aspect"),
+    ASPECT(Plugin.THAUMCRAFT, "Thaumcraft Aspect", "aspect"),
     /** This table uses {@code Item}'s {@code view} page. */
-    ASPECT_ENTRY(Plugin.THAUMCRAFT, "神秘时代要素表", "aspectentry"),
+    ASPECT_ENTRY(Plugin.THAUMCRAFT, "Thaumcraft Aspect Entry", "aspectentry"),
 
-    QUEST(Plugin.QUEST, "任务", "quest"),
+    QUEST(Plugin.QUEST, "Quest", "quest"),
     // Task and Reward tables are omitted.
-    QUEST_LINE(Plugin.QUEST, "任务线", "questline"),
+    QUEST_LINE(Plugin.QUEST, "Quest Line", "questline"),
     ;
 
     public static final ImmutableListMultimap<Plugin, Table> TABLES =
