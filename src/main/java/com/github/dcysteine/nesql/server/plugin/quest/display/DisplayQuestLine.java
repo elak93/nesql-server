@@ -14,9 +14,9 @@ public abstract class DisplayQuestLine implements Comparable<DisplayQuestLine> {
         String description = questLine.getDescription().replace("\n", "<br>");
 
         ImmutableList<Icon> quests =
-                questLine.getQuestLineEntries().stream()
+                questLine.getQuests().stream()
                         .sorted()
-                        .map(questEntries -> DisplayQuest.buildIcon(questEntries.getQuest(), service))
+                        .map(quest -> DisplayQuest.buildIcon(quest, service))
                         .collect(ImmutableList.toImmutableList());
 
         return new AutoValue_DisplayQuestLine(
@@ -29,6 +29,7 @@ public abstract class DisplayQuestLine implements Comparable<DisplayQuestLine> {
                 .setDescription(questLine.getName())
                 .setUrl(Table.QUEST_LINE.getViewUrl(questLine))
                 .setImage(questLine.getIcon().getImageFilePath())
+                .setBottomRight(questLine.getQuestLineId())
                 .build();
     }
 

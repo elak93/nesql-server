@@ -1,7 +1,6 @@
 package com.github.dcysteine.nesql.server.plugin.base;
 
 import com.github.dcysteine.nesql.server.common.SearchResultsLayout;
-import com.github.dcysteine.nesql.server.common.robot.RecipeSearchHelper;
 import com.github.dcysteine.nesql.server.common.util.ParamUtil;
 import com.github.dcysteine.nesql.server.plugin.base.display.recipe.DisplayRecipe;
 import com.github.dcysteine.nesql.server.plugin.base.display.BaseDisplayFactory;
@@ -19,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/base/recipe")
